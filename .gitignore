@@ -1,0 +1,4 @@
+#忽略.vagrant
+.vagrant
+
+.DS_Store
