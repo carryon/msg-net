@@ -1,4 +1,9 @@
-# 跨链路由协议routes
+## msg-net
+
+跨链路由协议routes
+
+[![Build Status](https://travis-ci.org/bocheninc/msg-net.svg?branch=master)](https://travis-ci.org/bocheninc/msg-net)
+[![GoDoc](https://godoc.org/github.com/bocheninc/msg-net?status.svg)](https://godoc.org/github.com/bocheninc/msg-net)
 
 ## 前言
 跨链路由协议，主要用于包含链中链的联盟链不同链间的通信， 提供消息路由转发的功能。
