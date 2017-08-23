@@ -14,11 +14,10 @@ import (
 )
 
 var (
-	virtualP0   *peer.Peer
-	channelmap  map[string]chan []byte
-	wg          sync.WaitGroup
-	refroute    pRouterHandler
-	defaultchan chan []byte
+	virtualP0  *peer.Peer
+	channelmap map[string]chan []byte
+	refroute   pRouterHandler
+	mux        sync.Mutex
 )
 
 func parseRpcPost(w http.ResponseWriter, request *http.Request) {
@@ -77,82 +76,60 @@ func parseRpcPost(w http.ResponseWriter, request *http.Request) {
 
 	logger.Debugf("The send request uid is %s ", keystr)
 
+	mux.Lock()
 	channelmap[keystr] = recvchan
+	mux.Unlock()
 
-	defer wg.Done()
+	var httpOutput SerialDataType
 
-	for {
-		select {
-		case recieve_msg := <-recvchan:
-			var httpoutput SerialDataType
-			transformResponseData(recieve_msg, &httpoutput)
-			w.Header().Set("content-type", "application/json")
-			w.Write(httpoutput)
-			close(recvchan)
-			delete(channelmap, keystr)
-			return
-		case <-time.After(time.Second * 5):
-			var httpoutput SerialDataType
-			w.Header().Set("content-type", "application/json")
-			httpoutput, _ = json.Marshal(struct {
-				Err string `json:"error"`
-			}{
-				"Timeout for request",
-			})
-			w.Write(httpoutput)
-			close(recvchan)
-			delete(channelmap, keystr)
-			return
-		}
+	select {
+	case buf := <-recvchan:
+		transformResponseData(buf, &httpOutput)
+	case <-time.After(time.Second * 5):
+		httpOutput = []byte(`{"result","timeout"}`)
+		mux.Lock()
+		delete(channelmap, keystr)
+		mux.Unlock()
 	}
+
+	close(recvchan)
+	w.Header().Set("content-type", "application/json")
+	w.Write(httpOutput)
 }
 
 func chainMessageHandle(srcID, dstID string, payload []byte, signature []byte) error {
 	msg := &sendMessage{}
 	utils.Deserialize(payload, msg)
-	wg.Add(1)
 
 	logger.Debugf("before recontruct data of response from chain msg type: %v, payload: %v", msg.Cmd, msg.Payload)
 
-	identityid, serialise_data := recontructData(msg.Cmd, msg.Payload)
-	logger.Debugf("The identity id from response is %s ", identityid.String())
-	go func() {
-		if channel, ok := channelmap[identityid.String()]; ok {
-			channel <- serialise_data
-		} else {
-			defaultchan <- serialise_data
-		}
-	}()
+	identityId, serialise_data := recontructData(msg.Cmd, msg.Payload)
+	logger.Debugf("The identity id from response is %s ", identityId.String())
+
+	mux.Lock()
+	if channel, ok := channelmap[identityId.String()]; ok {
+		delete(channelmap, identityId.String())
+		channel <- serialise_data
+	} else {
+		logger.Debugf("Unknown message from the msg-net for rpc msg")
+	}
+	mux.Unlock()
 
 	logger.Debugf("rpc response rom block chain  dst: %s, src: %s\n", dstID, srcID)
-
-	wg.Wait()
 
 	return nil
 }
 
 func RunRpcServer(port, address string, proute pRouterHandler) {
-	http.HandleFunc("/", parseRpcPost)
 	refroute = proute
-	go func() {
-		err := http.ListenAndServe(":"+port, nil)
-		if err != nil {
-			logger.Errorf("Run msgnet rpc server fail %s", err.Error())
-		} else {
-			logger.Debug("Run msgnet rpc server")
-		}
-	}()
-
 	virtualP0 = peer.NewPeer("01:595959", []string{address}, chainMessageHandle)
 	virtualP0.Start()
 	channelmap = make(map[string]chan []byte)
-	defaultchan = make(chan []byte)
-	for {
-		select {
-		case <-defaultchan:
-			wg.Done()
-			logger.Debugf("Unknown message from the msg-net for rpc msg")
-		}
+	http.HandleFunc("/", parseRpcPost)
+	err := http.ListenAndServe(":"+port, nil)
+	if err != nil {
+		logger.Errorf("Run msgnet rpc server fail %s", err.Error())
+	} else {
+		logger.Debug("Run msgnet rpc server")
 	}
-
 }
