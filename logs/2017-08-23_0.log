@@ -1,0 +1,692 @@
+time="2017-08-23 14:14:33" level=info msg="server 0.0.0.0:10001 started successfully" location="[server.go:86] " 
+time="2017-08-23 14:14:33" level=info msg="client 127.0.0.1:33176 information : {"localAddr":"127.0.0.1:33176","remoteAddr":"127.0.0.1:10001"}" location="[client.go:74] " 
+time="2017-08-23 14:14:33" level=info msg="server 0.0.0.0:10001 information : {"address":"0.0.0.0:10001","clients":["127.0.0.1:33176"],"clients_cnt":1}" location="[server.go:109] " 
+time="2017-08-23 14:14:39" level=info msg="server 0.0.0.0:10001 information : {"address":"0.0.0.0:10001","clients":["127.0.0.1:33176","127.0.0.1:33182"],"clients_cnt":2}" location="[server.go:109] " 
+time="2017-08-23 14:14:39" level=info msg="server 0.0.0.0:10001 information : {"address":"0.0.0.0:10001","clients":["127.0.0.1:33176","127.0.0.1:33182","127.0.0.1:33180"],"clients_cnt":3}" location="[server.go:109] " 
+time="2017-08-23 14:14:39" level=info msg="server 0.0.0.0:10001 information : {"address":"0.0.0.0:10001","clients":["127.0.0.1:33176","127.0.0.1:33182","127.0.0.1:33180","127.0.0.1:33178"],"clients_cnt":4}" location="[server.go:109] " 
+time="2017-08-23 14:14:39" level=info msg="server 0.0.0.0:10001 information : {"address":"0.0.0.0:10001","clients":["127.0.0.1:33190","127.0.0.1:33176","127.0.0.1:33182","127.0.0.1:33180","127.0.0.1:33178"],"clients_cnt":5}" location="[server.go:109] " 
+time="2017-08-23 14:14:48" level=info msg="router information : {"address":"0.0.0.0:10001","id":"0","peers":["01:595959","00:303030315f616263","00:303030325f616263","00:303030345f616263","00:303030335f616263"],"peers_cnt":5,"routers":[],"routers_cnt":0}" location="[router.go:191] " 
+time="2017-08-23 14:15:03" level=info msg="router information : {"address":"0.0.0.0:10001","id":"0","peers":["00:303030335f616263","01:595959","00:303030315f616263","00:303030325f616263","00:303030345f616263"],"peers_cnt":5,"routers":[],"routers_cnt":0}" location="[router.go:191] " 
+time="2017-08-23 14:15:18" level=info msg="router information : {"address":"0.0.0.0:10001","id":"0","peers":["00:303030345f616263","00:303030335f616263","01:595959","00:303030315f616263","00:303030325f616263"],"peers_cnt":5,"routers":[],"routers_cnt":0}" location="[router.go:191] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:15:19" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:36" level=info msg="server 0.0.0.0:10001 started successfully" location="[server.go:86] " 
+time="2017-08-23 14:19:36" level=info msg="client 127.0.0.1:34914 information : {"localAddr":"127.0.0.1:34914","remoteAddr":"127.0.0.1:10001"}" location="[client.go:74] " 
+time="2017-08-23 14:19:36" level=info msg="server 0.0.0.0:10001 information : {"address":"0.0.0.0:10001","clients":["127.0.0.1:34914"],"clients_cnt":1}" location="[server.go:109] " 
+time="2017-08-23 14:19:39" level=info msg="server 0.0.0.0:10001 information : {"address":"0.0.0.0:10001","clients":["127.0.0.1:34914","127.0.0.1:34916"],"clients_cnt":2}" location="[server.go:109] " 
+time="2017-08-23 14:19:39" level=info msg="server 0.0.0.0:10001 information : {"address":"0.0.0.0:10001","clients":["127.0.0.1:34914","127.0.0.1:34916","127.0.0.1:34918"],"clients_cnt":3}" location="[server.go:109] " 
+time="2017-08-23 14:19:39" level=info msg="server 0.0.0.0:10001 information : {"address":"0.0.0.0:10001","clients":["127.0.0.1:34916","127.0.0.1:34918","127.0.0.1:34920","127.0.0.1:34914"],"clients_cnt":4}" location="[server.go:109] " 
+time="2017-08-23 14:19:39" level=info msg="server 0.0.0.0:10001 information : {"address":"0.0.0.0:10001","clients":["127.0.0.1:34914","127.0.0.1:34916","127.0.0.1:34918","127.0.0.1:34920","127.0.0.1:34922"],"clients_cnt":5}" location="[server.go:109] " 
+time="2017-08-23 14:19:51" level=info msg="router information : {"address":"0.0.0.0:10001","id":"0","peers":["00:303030345f616263","00:303030335f616263","00:303030325f616263","00:303030315f616263","01:595959"],"peers_cnt":5,"routers":[],"routers_cnt":0}" location="[router.go:191] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 
+time="2017-08-23 14:19:54" level=info msg="broadcast all chain 00 peers
+" location="[peer.go:164] " 

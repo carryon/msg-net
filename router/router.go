@@ -37,6 +37,7 @@ import (
 	"github.com/bocheninc/msg-net/net/p2p"
 	pb "github.com/bocheninc/msg-net/protos"
 	"github.com/bocheninc/msg-net/router/route"
+	rpcserver "github.com/bocheninc/msg-net/http-rpc-server"
 )
 
 //NewRouter make new router struct
@@ -113,6 +114,9 @@ func (r *Router) Start() {
 		}
 		time.Sleep(time.Millisecond)
 		if r.server.IsRunning() {
+			go func() {
+				rpcserver.RunRpcServer(config.GetString("rpcserver.port"), config.GetString("router.address"), r)
+			}()
 			break
 		}
 	}
@@ -318,6 +322,30 @@ func (r *Router) String() string {
 		logger.Errorf("failed to json marshal --- %v\n", err)
 	}
 	return string(bytes)
+}
+
+func (r *Router) IsPeerExist(id string) bool {
+	chainids := make(map[string]struct{}, 0)
+	conIds := make(map[string]struct{}, 0)
+	var (
+		exist bool
+	)
+	r.peerIterFunc(func(peer *pb.Peer, conn net.Conn) {
+		if strings.Compare(peer.Id, "01:595959") == 0 {
+			return
+		}
+		blockids := strings.Split(peer.Id, ":")
+		chainids[blockids[0]] = struct{}{}
+		conIds[peer.Id] = struct{}{}
+	})
+
+	if isContain := strings.Contains(id, ":"); !isContain {
+		_, exist = chainids[id]
+	} else {
+		_, exist = conIds[id]
+	}
+
+	return exist
 }
 
 func (r *Router) routerAdd(key string, router *pb.Router, conn net.Conn) {

@@ -28,3 +28,6 @@ report:
       "on": false
       serverIP: "http://172.31.0.2"
       interval: 1s
+#rpcserver
+rpcserver:
+      port: 8989
