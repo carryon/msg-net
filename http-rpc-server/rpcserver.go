@@ -9,7 +9,7 @@ import (
 
 	"github.com/bocheninc/msg-net/logger"
 	"github.com/bocheninc/msg-net/peer"
-	"github.com/bocheninc/msg-net/utils"
+	"github.com/bocheninc/msg-net/util"
 	"github.com/twinj/uuid"
 )
 
@@ -61,7 +61,7 @@ func parseRpcPost(w http.ResponseWriter, request *http.Request) {
 	data.Cmd = ChainRpcMsg
 	data.Payload = output
 
-	sendbytes := utils.Serialize(data)
+	sendbytes := util.Serialize(data)
 
 	virtualP0.Send(chainstrId, sendbytes, nil)
 
@@ -99,7 +99,7 @@ func parseRpcPost(w http.ResponseWriter, request *http.Request) {
 
 func chainMessageHandle(srcID, dstID string, payload []byte, signature []byte) error {
 	msg := &sendMessage{}
-	utils.Deserialize(payload, msg)
+	util.Deserialize(payload, msg)
 
 	logger.Debugf("before recontruct data of response from chain msg type: %v, payload: %v", msg.Cmd, msg.Payload)
 

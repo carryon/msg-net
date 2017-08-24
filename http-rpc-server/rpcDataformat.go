@@ -2,8 +2,9 @@ package http_rpc_server
 
 import (
 	"encoding/json"
+
 	"github.com/bocheninc/msg-net/logger"
-	"github.com/bocheninc/msg-net/utils"
+	"github.com/bocheninc/msg-net/util"
 	"github.com/twinj/uuid"
 )
 
@@ -34,7 +35,7 @@ const (
 
 func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 	encapdata := &sendMessage{}
-	utils.Deserialize(responseData, encapdata)
+	util.Deserialize(responseData, encapdata)
 	switch encapdata.Cmd {
 	case RpcNewAccount:
 		tmpdata := encapdata.Payload
@@ -42,7 +43,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr  string
 			Outputaddr Address
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		logger.Debugf("The address is %s", outputdata.Outputaddr.String())
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
@@ -64,7 +65,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr       string
 			Outaccountslist []string
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -85,7 +86,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr string
 			Signstr   string
 		}{}
-		utils.Deserialize(tmpdata, &outsigndata)
+		util.Deserialize(tmpdata, &outsigndata)
 		if len(outsigndata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -106,7 +107,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr string
 			Outtrans  string
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -127,7 +128,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr    string
 			Outbroadcast BroadcastReply
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -148,7 +149,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr     string
 			Outbroadquery string
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -169,7 +170,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr    string
 			Outlocalpeer string
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -190,7 +191,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr string
 			Outpeers  []string
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -211,7 +212,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr  string
 			Outbalance Balance
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -232,7 +233,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr string
 			Outheight uint32
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -253,7 +254,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr string
 			Outhash   Hash
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -274,7 +275,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr    string
 			OutBlockhash Hash
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -295,7 +296,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr string
 			Outblock  Block
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -316,7 +317,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr string
 			Outblock  Block
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -337,7 +338,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr string
 			Outtx     Transaction
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -358,7 +359,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr string
 			OutTxs    Transactions
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -379,7 +380,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr string
 			OutTxs    Transactions
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -400,7 +401,7 @@ func transformResponseData(responseData []byte, httpoutput *SerialDataType) {
 			Outputerr string
 			OutTxs    Transactions
 		}{}
-		utils.Deserialize(tmpdata, &outputdata)
+		util.Deserialize(tmpdata, &outputdata)
 		if len(outputdata.Outputerr) > 0 {
 			*httpoutput, _ = json.Marshal(struct {
 				Err string `json:"error"`
@@ -439,14 +440,14 @@ func recontructData(msgtype uint8, payload []byte) (uuid.Uuid, []byte) {
 			Outputerr  string
 			IdentityId uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		logger.Debugf("The return address is %s", retdata.Outaddress.String())
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr  string
 				Outaddress Address
 			}{
@@ -454,212 +455,212 @@ func recontructData(msgtype uint8, payload []byte) (uuid.Uuid, []byte) {
 				retdata.Outaddress,
 			}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case RpcListAccount:
 		retdata := struct {
 			Outaccountslist []string
 			Outputerr       string
 			IdentityId      uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr       string
 				Outaccountslist []string
 			}{retdata.Outputerr, retdata.Outaccountslist}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case RpcSignAccount:
 		retdata := struct {
 			Outsignstr string
 			Outputerr  string
 			IdentityId uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr  string
 				Outsignstr string
 			}{retdata.Outputerr, retdata.Outsignstr}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case RpcTransCreate:
 		retdata := struct {
 			Outtransactionout string
 			Outputerr         string
 			IdentityId        uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr         string
 				Outtransactionout string
 			}{retdata.Outputerr, retdata.Outtransactionout}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case RpcTransBroadcast:
 		retdata := struct {
 			Outbroadcastreps BroadcastReply
 			Outputerr        string
 			IdentityId       uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr        string
 				Outbroadcastreps BroadcastReply
 			}{retdata.Outputerr, retdata.Outbroadcastreps}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case RpcTransBroadQuery:
 		retdata := struct {
 			Outquerystr string
 			Outputerr   string
 			IdentityId  uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr   string
 				Outquerystr string
 			}{retdata.Outputerr, retdata.Outquerystr}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case NetGetLocalpeer:
 		retdata := struct {
 			Outpeerstr string
 			Outputerr  string
 			IdentityId uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr  string
 				Outpeerstr string
 			}{retdata.Outputerr, retdata.Outpeerstr}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case NetGetPeers:
 		retdata := struct {
 			Outpeersstr []string
 			Outputerr   string
 			IdentityId  uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr   string
 				Outpeersstr []string
 			}{retdata.Outputerr, retdata.Outpeersstr}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case LedgerBalance:
 		retdata := struct {
 			Outbalance Balance
 			Outputerr  string
 			IdentityId uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr  string
 				Outbalance Balance
 			}{retdata.Outputerr, retdata.Outbalance}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case LedgerHeight:
 		retdata := struct {
 			Outheight  uint32
 			Outputerr  string
 			IdentityId uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr string
 				Outheight uint32
 			}{retdata.Outputerr, retdata.Outheight}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case LastBlockHash:
 		retdata := struct {
 			Lastblockhash Hash
 			Outputerr     string
 			IdentityId    uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr     string
 				Lastblockhash Hash
 			}{retdata.Outputerr, retdata.Lastblockhash}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case NumberForBlockHash:
 		retdata := struct {
 			Outblockhash Hash
 			Outputerr    string
 			IdentityId   uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr    string
 				Outblockhash Hash
 			}{retdata.Outputerr, retdata.Outblockhash}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case NumberForBlock:
 		retdata := struct {
 			Outputblock Block
 			Outputerr   string
 			IdentityId  uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		logger.Debugf("The identity id is %s", uid.String())
 		logger.Debugf("The block info is blockheader: %v , hash list: %v ", retdata.Outputblock.BlockHeader, retdata.Outputblock.TxHashList)
@@ -667,105 +668,105 @@ func recontructData(msgtype uint8, payload []byte) (uuid.Uuid, []byte) {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr   string
 				Outputblock Block
 			}{retdata.Outputerr, retdata.Outputblock}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case HashForBlock:
 		retdata := struct {
 			Outputblock Block
 			Outputerr   string
 			IdentityId  uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr   string
 				Outputblock Block
 			}{retdata.Outputerr, retdata.Outputblock}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case HashForTx:
 		retdata := struct {
 			OutputTx   Transaction
 			Outputerr  string
 			IdentityId uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr string
 				OutputTx  Transaction
 			}{retdata.Outputerr, retdata.OutputTx}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case BlockHashForTxs:
 		retdata := struct {
 			Outputtxs  Transactions
 			Outputerr  string
 			IdentityId uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr string
 				Outputtxs Transactions
 			}{retdata.Outputerr, retdata.Outputtxs}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case BlockNumberForTxs:
 		retdata := struct {
 			Outputtxs  Transactions
 			Outputerr  string
 			IdentityId uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr string
 				Outputtxs Transactions
 			}{retdata.Outputerr, retdata.Outputtxs}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	case MergeTxHashForTxs:
 		retdata := struct {
 			Outputtxs  Transactions
 			Outputerr  string
 			IdentityId uuid.Uuid
 		}{}
-		utils.Deserialize(payload, &retdata)
+		util.Deserialize(payload, &retdata)
 		uid = retdata.IdentityId
 		encapdata := struct {
 			Cmd     uint8
 			Payload []byte
 		}{
-			msgtype, utils.Serialize(struct {
+			msgtype, util.Serialize(struct {
 				Outputerr string
 				Outputtxs Transactions
 			}{retdata.Outputerr, retdata.Outputtxs}),
 		}
-		retSerializeData = utils.Serialize(encapdata)
+		retSerializeData = util.Serialize(encapdata)
 	default:
 		uid = uuid.NewV4()
-		retSerializeData = utils.Serialize(struct{}{})
+		retSerializeData = util.Serialize(struct{}{})
 	}
 
 	logger.Debugf("after recontruct data of response from chain uid: %v, serialize data: %v", uid, retSerializeData)

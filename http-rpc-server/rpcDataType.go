@@ -1,11 +1,12 @@
 package http_rpc_server
 
 import (
-	"math/big"
-	"sync/atomic"
 	"encoding/hex"
 	"fmt"
-	"github.com/bocheninc/msg-net/utils"
+	"math/big"
+	"sync/atomic"
+
+	"github.com/bocheninc/msg-net/util"
 )
 
 const (
@@ -20,7 +21,7 @@ const (
 type Address [AddressLength]byte
 
 type message struct {
-	ChainId   string  `json:"chainId"`
+	ChainId string `json:"chainId"`
 }
 
 // Message represents the message transfer in msg-net
@@ -40,8 +41,8 @@ type test_struct struct {
 
 type (
 	// Hash represents the 32 byte hash of arbitrary data
-	Hash [HashSize]byte
-	Signature [SignatureSize]byte
+	Hash            [HashSize]byte
+	Signature       [SignatureSize]byte
 	ChainCoordinate []byte
 )
 
@@ -49,10 +50,9 @@ type pRouterHandler interface {
 	IsPeerExist(id string) bool
 }
 
-
 type BroadcastReply struct {
-	ContractAddr    *string     `json:"contractAddr"`
-	TransactionHash Hash       `json:"transactionHash"`
+	ContractAddr    *string `json:"contractAddr"`
+	TransactionHash Hash    `json:"transactionHash"`
 }
 
 type Balance struct {
@@ -62,30 +62,30 @@ type Balance struct {
 
 // BlockHeader represents the header in block
 type BlockHeader struct {
-	PreviousHash  Hash        `json:"previousHash" `
-	TimeStamp     uint32      `json:"timeStamp"`
-	Nonce         uint32      `json:"nonce" `
-	TxsMerkleHash Hash        `json:"transactionsMerkleHash" `
-	Height        uint32      `json:"height" `
+	PreviousHash  Hash   `json:"previousHash" `
+	TimeStamp     uint32 `json:"timeStamp"`
+	Nonce         uint32 `json:"nonce" `
+	TxsMerkleHash Hash   `json:"transactionsMerkleHash" `
+	Height        uint32 `json:"height" `
 }
 
 //Block json rpc return block
 type Block struct {
 	BlockHeader *BlockHeader `json:"header"`
-	TxHashList  []Hash      `json:"txHashList"`
+	TxHashList  []Hash       `json:"txHashList"`
 }
 
 type txdata struct {
 	FromChain  ChainCoordinate `json:"fromChain"`
 	ToChain    ChainCoordinate `json:"toChain"`
-	Type       uint32                     `json:"type"`
-	Nonce      uint32                     `json:"nonce"`
-	Sender     Address           `json:"sender"`
-	Recipient  Address           `json:"recipient"`
-	Amount     *big.Int                   `json:"amount"`
-	Fee        *big.Int                   `json:"fee"`
-	Signature  *Signature          `json:"signature"`
-	CreateTime uint32                     `json:"createTime"`
+	Type       uint32          `json:"type"`
+	Nonce      uint32          `json:"nonce"`
+	Sender     Address         `json:"sender"`
+	Recipient  Address         `json:"recipient"`
+	Amount     *big.Int        `json:"amount"`
+	Fee        *big.Int        `json:"fee"`
+	Signature  *Signature      `json:"signature"`
+	CreateTime uint32          `json:"createTime"`
 }
 
 // Transaction represents the basic transaction that contained in blocks
@@ -107,7 +107,6 @@ func (self Address) String() string {
 	return fmt.Sprintf("%s%x", addressPrefix, self[:])
 }
 
-
 //Bytes returns address bytes
 func (self Address) Bytes() []byte {
 	return self[:]
@@ -115,22 +114,22 @@ func (self Address) Bytes() []byte {
 
 // MarshalText returns the hex representation of a.
 func (a Address) MarshalText() ([]byte, error) {
-	return utils.Bytes(a[:]).MarshalText()
+	return util.Bytes(a[:]).MarshalText()
 }
 
 // UnmarshalText parses a hash in hex syntax.
 func (a *Address) UnmarshalText(input []byte) error {
-	return utils.UnmarshalFixedText(input, a[:])
+	return util.UnmarshalFixedText(input, a[:])
 }
 
 func (h Hash) String() string { return hex.EncodeToString(h[:]) }
 
 // MarshalText returns the hex representation of h.
 func (h Hash) MarshalText() ([]byte, error) {
-	return utils.Bytes(h[:]).MarshalText()
+	return util.Bytes(h[:]).MarshalText()
 }
 
 // UnmarshalText parses a hash in hex syntax.
 func (h *Hash) UnmarshalText(input []byte) error {
-	return utils.UnmarshalFixedText(input, h[:])
+	return util.UnmarshalFixedText(input, h[:])
 }
