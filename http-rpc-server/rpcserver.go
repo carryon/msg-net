@@ -2,6 +2,7 @@ package http_rpc_server
 
 import (
 	"encoding/json"
+	"fmt"
 	"io/ioutil"
 	"net/http"
 	"sync"
@@ -10,14 +11,15 @@ import (
 	"github.com/bocheninc/msg-net/logger"
 	"github.com/bocheninc/msg-net/peer"
 	"github.com/bocheninc/msg-net/util"
+	"github.com/spf13/viper"
 	"github.com/twinj/uuid"
 )
 
 var (
 	virtualP0  *peer.Peer
 	channelmap map[string]chan []byte
-	refroute   pRouterHandler
-	mux        sync.Mutex
+	// refroute   pRouterHandler
+	mux sync.Mutex
 )
 
 func parseRpcPost(w http.ResponseWriter, request *http.Request) {
@@ -42,13 +44,13 @@ func parseRpcPost(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	chainstrId := msg.ChainId
+	// chainstrId := msg.ChainId
 
-	isPeerExist := refroute.IsPeerExist(chainstrId)
-	if !isPeerExist {
-		http.Error(w, "chain id is not valid", 500)
-		return
-	}
+	// isPeerExist := refroute.IsPeerExist(chainstrId)
+	// if !isPeerExist {
+	// 	http.Error(w, "chain id is not valid", 500)
+	// 	return
+	// }
 
 	u := uuid.NewV4()
 
@@ -63,7 +65,7 @@ func parseRpcPost(w http.ResponseWriter, request *http.Request) {
 
 	sendbytes := util.Serialize(data)
 
-	virtualP0.Send(chainstrId, sendbytes, nil)
+	virtualP0.Send(msg.ChainId, sendbytes, nil)
 
 	if err != nil {
 		http.Error(w, err.Error(), 500)
@@ -120,9 +122,14 @@ func chainMessageHandle(srcID, dstID string, payload []byte, signature []byte) e
 	return nil
 }
 
-func RunRpcServer(port, address string, proute pRouterHandler) {
-	refroute = proute
-	virtualP0 = peer.NewPeer("01:595959", []string{address}, chainMessageHandle)
+func RunRpcServer(port, address string) {
+
+	id := viper.GetString("router.id")
+	if id == "" {
+		id = fmt.Sprintf("%d", time.Now().Nanosecond())
+	}
+
+	virtualP0 = peer.NewPeer("01:"+id, []string{address}, chainMessageHandle)
 	virtualP0.Start()
 	channelmap = make(map[string]chan []byte)
 	http.HandleFunc("/", parseRpcPost)

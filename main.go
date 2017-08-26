@@ -30,7 +30,7 @@ import (
 func main() {
 	if port := config.GetString("profiler.port"); port != "" {
 		go func() {
-			http.ListenAndServe("localhost:"+port, nil)
+			http.ListenAndServe("0.0.0.0:"+port, nil)
 		}()
 	}
 	runtime.GOMAXPROCS(runtime.NumCPU())

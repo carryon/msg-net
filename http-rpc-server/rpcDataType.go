@@ -46,9 +46,9 @@ type (
 	ChainCoordinate []byte
 )
 
-type pRouterHandler interface {
-	IsPeerExist(id string) bool
-}
+// type pRouterHandler interface {
+// 	IsPeerExist(id string) bool
+// }
 
 type BroadcastReply struct {
 	ContractAddr    *string `json:"contractAddr"`
