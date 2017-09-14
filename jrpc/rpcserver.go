@@ -1,25 +1,37 @@
-package http_rpc_server
+package jrpc
 
 import (
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"net/http"
-	"sync"
 	"time"
 
 	"github.com/bocheninc/msg-net/logger"
 	"github.com/bocheninc/msg-net/peer"
 	"github.com/bocheninc/msg-net/util"
 	"github.com/spf13/viper"
-	"github.com/twinj/uuid"
 )
 
 var (
-	virtualP0  *peer.Peer
-	channelmap map[string]chan []byte
-	// refroute   pRouterHandler
-	mux sync.Mutex
+	virtualP0 *peer.Peer
+	recvchan  = make(chan []byte)
+)
+
+type message struct {
+	Id      int      `json:"id"`
+	ChainId string   `json:"chainId"`
+	Method  string   `json:"method"`
+	Params  []string `json:"params"`
+}
+
+type MsgnetMessage struct {
+	Cmd     int
+	Payload []byte
+}
+
+const (
+	ChainRpcMsg = 105
 )
 
 func parseRpcPost(w http.ResponseWriter, request *http.Request) {
@@ -44,26 +56,18 @@ func parseRpcPost(w http.ResponseWriter, request *http.Request) {
 		return
 	}
 
-	// chainstrId := msg.ChainId
-
-	// isPeerExist := refroute.IsPeerExist(chainstrId)
-	// if !isPeerExist {
-	// 	http.Error(w, "chain id is not valid", 500)
-	// 	return
-	// }
-
-	u := uuid.NewV4()
-
 	output, _ := json.Marshal(struct {
-		Data       []byte
-		IdentityId uuid.Uuid `json:"uuid"`
-	}{b, u})
+		Id     int      `json:"id"`
+		Method string   `json:"method"`
+		Params []string `json:"params"`
+	}{msg.Id, msg.Method, msg.Params})
 
-	data := sendMessage{}
+	data := MsgnetMessage{}
 	data.Cmd = ChainRpcMsg
 	data.Payload = output
 
 	sendbytes := util.Serialize(data)
+	logger.Debugf("The send request  ", string(b))
 
 	virtualP0.Send(msg.ChainId, sendbytes, nil)
 
@@ -71,54 +75,29 @@ func parseRpcPost(w http.ResponseWriter, request *http.Request) {
 		http.Error(w, err.Error(), 500)
 		return
 	}
+	for {
 
-	recvchan := make(chan []byte)
-
-	keystr := u.String()
-
-	logger.Debugf("The send request uid is %s ", keystr)
-
-	mux.Lock()
-	channelmap[keystr] = recvchan
-	mux.Unlock()
-
-	var httpOutput SerialDataType
-
-	select {
-	case buf := <-recvchan:
-		transformResponseData(buf, &httpOutput)
-	case <-time.After(time.Second * 5):
-		httpOutput = []byte(`{"result","timeout"}`)
-		mux.Lock()
-		delete(channelmap, keystr)
-		mux.Unlock()
+		select {
+		case buf := <-recvchan:
+			w.Header().Set("content-type", "application/json")
+			w.Write(buf)
+			return
+		case <-time.After(time.Second * 5):
+			w.Header().Set("content-type", "application/json")
+			w.Write([]byte(`{"result","timeout"}`))
+			return
+		}
 	}
 
-	close(recvchan)
-	w.Header().Set("content-type", "application/json")
-	w.Write(httpOutput)
 }
 
 func chainMessageHandle(srcID, dstID string, payload []byte, signature []byte) error {
-	msg := &sendMessage{}
+	msg := &MsgnetMessage{}
 	util.Deserialize(payload, msg)
-
 	logger.Debugf("before recontruct data of response from chain msg type: %v, payload: %v", msg.Cmd, msg.Payload)
-
-	identityId, serialise_data := recontructData(msg.Cmd, msg.Payload)
-	logger.Debugf("The identity id from response is %s ", identityId.String())
-
-	mux.Lock()
-	if channel, ok := channelmap[identityId.String()]; ok {
-		delete(channelmap, identityId.String())
-		channel <- serialise_data
-	} else {
-		logger.Debugf("Unknown message from the msg-net for rpc msg")
-	}
-	mux.Unlock()
-
+	recvchan <- msg.Payload
+	recvchan = make(chan []byte)
 	logger.Debugf("rpc response rom block chain  dst: %s, src: %s\n", dstID, srcID)
-
 	return nil
 }
 
@@ -128,10 +107,8 @@ func RunRpcServer(port, address string) {
 	if id == "" {
 		id = fmt.Sprintf("%d", time.Now().Nanosecond())
 	}
-
 	virtualP0 = peer.NewPeer("01:"+id, []string{address}, chainMessageHandle)
 	virtualP0.Start()
-	channelmap = make(map[string]chan []byte)
 	http.HandleFunc("/", parseRpcPost)
 	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {

@@ -153,18 +153,6 @@
 			"revisionTime": "2017-03-15T13:43:09Z"
 		},
 		{
-			"checksumSHA1": "ClyNDKGVhQH1K/IXbLZ1qMv0ddA=",
-			"path": "github.com/twinj/uuid",
-			"revision": "7bbe408d339787c56ec15568c947c0959db1b275",
-			"revisionTime": "2016-09-09T07:54:38Z"
-		},
-		{
-			"checksumSHA1": "ClyNDKGVhQH1K/IXbLZ1qMv0ddA=",
-			"path": "github.com/twinj/uuid",
-			"revision": "7bbe408d339787c56ec15568c947c0959db1b275",
-			"revisionTime": "2016-09-09T07:54:38Z"
-		},
-		{
 			"checksumSHA1": "mIZhS4hXW3qVQxsJ6tqztjJoJ8A=",
 			"path": "golang.org/x/sys/unix",
 			"revision": "9a7256cb28ed514b4e1e5f68959914c4c28a92e0",
