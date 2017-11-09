@@ -5,39 +5,40 @@ import (
 	"fmt"
 	"io/ioutil"
 	"net/http"
+	"sync"
 	"time"
 
 	"github.com/bocheninc/msg-net/logger"
 	"github.com/bocheninc/msg-net/peer"
 	"github.com/bocheninc/msg-net/util"
-	"github.com/spf13/viper"
 )
 
 var (
 	virtualP0 *peer.Peer
-	recvchan  = make(chan []byte)
+	// allRequest map[int64]chan *msgnetMessage
+	allRequest sync.Map
 )
 
 type message struct {
-	Id      int      `json:"id"`
-	ChainId string   `json:"chainId"`
+	ID      int64    `json:"id"`
+	ChainID string   `json:"chainId"`
 	Method  string   `json:"method"`
 	Params  []string `json:"params"`
 }
 
-type MsgnetMessage struct {
+type msgnetMessage struct {
 	Cmd     int
 	Payload []byte
 }
 
 const (
-	ChainRpcMsg = 105
+	chainRPCMsg = 105
 )
 
-func parseRpcPost(w http.ResponseWriter, request *http.Request) {
+func parseRPCPost(w http.ResponseWriter, request *http.Request) {
+	defer request.Body.Close()
 	// Read body
 	b, err := ioutil.ReadAll(request.Body)
-	defer request.Body.Close()
 	if err != nil {
 		http.Error(w, err.Error(), 500)
 		return
@@ -45,71 +46,78 @@ func parseRpcPost(w http.ResponseWriter, request *http.Request) {
 
 	// Unmarshal
 	var msg message
-	err = json.Unmarshal(b, &msg)
-	if err != nil {
+
+	if err = json.Unmarshal(b, &msg); err != nil {
 		http.Error(w, err.Error(), 500)
 		return
 	}
 
-	if len(msg.ChainId) == 0 {
+	logger.Debugf("The send request  ", string(b))
+
+	if len(msg.ChainID) == 0 {
 		http.Error(w, "should specifiy the chain id", 500)
 		return
 	}
 
+	now := time.Now().UnixNano()
 	output, _ := json.Marshal(struct {
-		Id     int      `json:"id"`
+		ID     int64    `json:"id"`
 		Method string   `json:"method"`
 		Params []string `json:"params"`
-	}{msg.Id, msg.Method, msg.Params})
+	}{now, msg.Method, msg.Params})
 
-	data := MsgnetMessage{}
-	data.Cmd = ChainRpcMsg
-	data.Payload = output
-
-	sendbytes := util.Serialize(data)
-	logger.Debugf("The send request  ", string(b))
-
-	virtualP0.Send(msg.ChainId, sendbytes, nil)
-
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
-	for {
-
+	w.Header().Set("content-type", "application/json")
+	if virtualP0.Send(msg.ChainID, util.Serialize(msgnetMessage{Cmd: chainRPCMsg, Payload: output}), nil) {
+		ch := make(chan *msgnetMessage)
+		// allRequest[now] = ch
+		allRequest.Store(now, ch)
 		select {
-		case buf := <-recvchan:
-			w.Header().Set("content-type", "application/json")
-			w.Write(buf)
-			return
-		case <-time.After(time.Second * 5):
-			w.Header().Set("content-type", "application/json")
-			w.Write([]byte(`{"result","timeout"}`))
-			return
+		case m := <-ch:
+			w.Write(m.Payload)
+		case <-time.NewTicker(time.Second * 30).C:
+			w.Write([]byte(`{"result","error"}`))
 		}
+	} else {
+		w.Write([]byte(`{"result","error , msgnet send msg to l0"}`))
 	}
-
 }
 
-func chainMessageHandle(srcID, dstID string, payload []byte, signature []byte) error {
-	msg := &MsgnetMessage{}
+func chainMessageHandle(srcID, dstID string, payload, signature []byte) error {
+	defer func() {
+		if r := recover(); r != nil {
+			logger.Debugln(r)
+			return
+		}
+	}()
+
+	msg := &msgnetMessage{}
 	util.Deserialize(payload, msg)
-	logger.Debugf("before recontruct data of response from chain msg type: %v, payload: %v", msg.Cmd, msg.Payload)
-	recvchan <- msg.Payload
-	recvchan = make(chan []byte)
-	logger.Debugf("rpc response rom block chain  dst: %s, src: %s\n", dstID, srcID)
+	var reslt message
+	json.Unmarshal(msg.Payload, &reslt)
+
+	if v, ok := allRequest.Load(reslt.ID); ok {
+		allRequest.Delete(reslt.ID)
+		ch, f := v.(chan *msgnetMessage)
+		if f {
+			logger.Debugln("===================ok")
+			ch <- msg
+			close(ch)
+		}
+		logger.Debugln("===================chan err")
+	}
+	logger.Debugln("=======================map nil")
+	// if v, ok := allRequest[reslt.ID]; ok {
+	// 	v <- msg
+	// 	close(v)
+	// }
 	return nil
 }
 
-func RunRpcServer(port, address string) {
-
-	id := viper.GetString("router.id")
-	if id == "" {
-		id = fmt.Sprintf("%d", time.Now().Nanosecond())
-	}
-	virtualP0 = peer.NewPeer("01:"+id, []string{address}, chainMessageHandle)
+// RunRPCServer start rpc proxy
+func RunRPCServer(port, address string) {
+	virtualP0 = peer.NewPeer(fmt.Sprintf("__virtual:%d", time.Now().Nanosecond()), []string{address}, chainMessageHandle)
 	virtualP0.Start()
-	http.HandleFunc("/", parseRpcPost)
+	http.HandleFunc("/", parseRPCPost)
 	err := http.ListenAndServe(":"+port, nil)
 	if err != nil {
 		logger.Errorf("Run msgnet rpc server fail %s", err.Error())

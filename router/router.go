@@ -119,7 +119,7 @@ func (r *Router) Start() {
 		time.Sleep(time.Millisecond)
 		if r.server.IsRunning() {
 			go func() {
-				rpcserver.RunRpcServer(config.GetString("rpcserver.port"), config.GetString("router.address"))
+				rpcserver.RunRPCServer(config.GetString("rpcserver.port"), config.GetString("router.address"))
 			}()
 			break
 		}

@@ -173,9 +173,7 @@ func (p *Peer) connect(ctx context.Context) {
 
 		if !p.isConned {
 			for _, addr := range p.addresses {
-				p.client = tcp.NewClient(addr, func() common.IMsg {
-					return &pb.Message{}
-				}, p.handleMsg)
+				p.client = tcp.NewClient(addr, func() common.IMsg { return &pb.Message{} }, p.handleMsg)
 				if conn := p.client.Connect(); conn != nil {
 					p.isConned = true
 					pr := pb.Peer{Id: p.id}
