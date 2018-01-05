@@ -2,7 +2,7 @@
 logger:
       level: debug #debug、info、warn、error、fatal、panic
       formatter: text #test、 json
-      out: "./logs" #log directory path, empty will be stderr
+      out: "" #log directory path, empty will be stderr
 #profiler
 profiler:
       port: 6060

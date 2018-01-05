@@ -2,12 +2,13 @@ package jrpc
 
 import (
 	"encoding/json"
+	"errors"
 	"fmt"
-	"io/ioutil"
-	"net/http"
+	"net"
 	"sync"
 	"time"
 
+	"github.com/bocheninc/base/rpc"
 	"github.com/bocheninc/msg-net/logger"
 	"github.com/bocheninc/msg-net/peer"
 	"github.com/bocheninc/msg-net/util"
@@ -19,67 +20,22 @@ var (
 	allRequest sync.Map
 )
 
-type message struct {
-	ID      int64    `json:"id"`
-	ChainID string   `json:"chainId"`
-	Method  string   `json:"method"`
-	Params  []string `json:"params"`
-}
-
-type msgnetMessage struct {
-	Cmd     int
-	Payload []byte
-}
-
 const (
 	chainRPCMsg = 105
 )
 
-func parseRPCPost(w http.ResponseWriter, request *http.Request) {
-	defer request.Body.Close()
-	// Read body
-	b, err := ioutil.ReadAll(request.Body)
-	if err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
-
-	// Unmarshal
-	var msg message
-
-	if err = json.Unmarshal(b, &msg); err != nil {
-		http.Error(w, err.Error(), 500)
-		return
-	}
-
-	logger.Debugf("The send request  ", string(b))
-
-	if len(msg.ChainID) == 0 {
-		http.Error(w, "should specifiy the chain id", 500)
-		return
-	}
-
-	now := time.Now().UnixNano()
-	output, _ := json.Marshal(struct {
-		ID     int64    `json:"id"`
-		Method string   `json:"method"`
-		Params []string `json:"params"`
-	}{now, msg.Method, msg.Params})
-
-	w.Header().Set("content-type", "application/json")
-	if virtualP0.Send(msg.ChainID, util.Serialize(msgnetMessage{Cmd: chainRPCMsg, Payload: output}), nil) {
+func sendMessage(id int, dst string, payload []byte) ([]byte, error) {
+	if virtualP0.Send(dst, util.Serialize(msgnetMessage{Cmd: chainRPCMsg, Payload: payload}), nil) {
 		ch := make(chan *msgnetMessage)
-		// allRequest[now] = ch
-		allRequest.Store(now, ch)
+		allRequest.Store(id, ch)
 		select {
 		case m := <-ch:
-			w.Write(m.Payload)
+			return m.Payload, nil
 		case <-time.NewTicker(time.Second * 30).C:
-			w.Write([]byte(`{"result","error"}`))
+			return nil, errors.New("send msg time out")
 		}
-	} else {
-		w.Write([]byte(`{"result","error , msgnet send msg to l0"}`))
 	}
+	return nil, errors.New("msgnet can't send msg to l0")
 }
 
 func chainMessageHandle(srcID, dstID string, payload, signature []byte) error {
@@ -92,24 +48,16 @@ func chainMessageHandle(srcID, dstID string, payload, signature []byte) error {
 
 	msg := &msgnetMessage{}
 	util.Deserialize(payload, msg)
-	var reslt message
-	json.Unmarshal(msg.Payload, &reslt)
-
-	if v, ok := allRequest.Load(reslt.ID); ok {
-		allRequest.Delete(reslt.ID)
+	var result Response
+	json.Unmarshal(msg.Payload, &result)
+	if v, ok := allRequest.Load(result.ID); ok {
+		allRequest.Delete(result.ID)
 		ch, f := v.(chan *msgnetMessage)
 		if f {
-			logger.Debugln("===================ok")
 			ch <- msg
 			close(ch)
 		}
-		logger.Debugln("===================chan err")
 	}
-	logger.Debugln("=======================map nil")
-	// if v, ok := allRequest[reslt.ID]; ok {
-	// 	v <- msg
-	// 	close(v)
-	// }
 	return nil
 }
 
@@ -117,11 +65,17 @@ func chainMessageHandle(srcID, dstID string, payload, signature []byte) error {
 func RunRPCServer(port, address string) {
 	virtualP0 = peer.NewPeer(fmt.Sprintf("__virtual:%d", time.Now().Nanosecond()), []string{address}, chainMessageHandle)
 	virtualP0.Start()
-	http.HandleFunc("/", parseRPCPost)
-	err := http.ListenAndServe(":"+port, nil)
-	if err != nil {
-		logger.Errorf("Run msgnet rpc server fail %s", err.Error())
-	} else {
-		logger.Debug("Run msgnet rpc server")
+
+	server := rpc.NewServer()
+
+	server.Register(&MsgNet{})
+
+	var (
+		listener net.Listener
+		err      error
+	)
+	if listener, err = net.Listen("tcp", ":"+port); err != nil {
+		logger.Errorf("TestServer error %+v", err)
 	}
+	rpc.NewHTTPServer(server, []string{"*"}).Serve(listener)
 }
