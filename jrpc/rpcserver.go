@@ -11,8 +11,14 @@ import (
 	"github.com/bocheninc/base/rpc"
 	"github.com/bocheninc/msg-net/logger"
 	"github.com/bocheninc/msg-net/peer"
+	pb "github.com/bocheninc/msg-net/protos"
 	"github.com/bocheninc/msg-net/util"
 )
+
+type RouterInterface interface {
+	PeerIDIterFunc(function func(*pb.Peer))
+	String() string
+}
 
 var (
 	virtualP0 *peer.Peer
@@ -24,7 +30,8 @@ const (
 	chainRPCMsg = 105
 )
 
-func sendMessage(id int, dst string, payload []byte) ([]byte, error) {
+func sendMessage(id int64, dst string, payload []byte) ([]byte, error) {
+	fmt.Println("000000000000000:", string(payload))
 	if virtualP0.Send(dst, util.Serialize(msgnetMessage{Cmd: chainRPCMsg, Payload: payload}), nil) {
 		ch := make(chan *msgnetMessage)
 		allRequest.Store(id, ch)
@@ -62,13 +69,13 @@ func chainMessageHandle(srcID, dstID string, payload, signature []byte) error {
 }
 
 // RunRPCServer start rpc proxy
-func RunRPCServer(port, address string) {
+func RunRPCServer(port, address string, router RouterInterface) {
 	virtualP0 = peer.NewPeer(fmt.Sprintf("__virtual:%d", time.Now().Nanosecond()), []string{address}, chainMessageHandle)
 	virtualP0.Start()
 
 	server := rpc.NewServer()
 
-	server.Register(&MsgNet{})
+	server.Register(&MsgNet{Router: router})
 
 	var (
 		listener net.Listener

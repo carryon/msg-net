@@ -119,7 +119,7 @@ func (r *Router) Start() {
 		time.Sleep(time.Millisecond)
 		if r.server.IsRunning() {
 			go func() {
-				rpcserver.RunRPCServer(config.GetString("rpcserver.port"), config.GetString("router.address"))
+				rpcserver.RunRPCServer(config.GetString("rpcserver.port"), config.GetString("router.address"), r)
 			}()
 			break
 		}
@@ -437,6 +437,16 @@ func (r *Router) peerIterFunc(function func(*pb.Peer, peerConn)) {
 		p := &pb.Peer{}
 		json.Unmarshal([]byte(key), p)
 		function(p, conn)
+	}
+}
+
+func (r *Router) PeerIDIterFunc(function func(*pb.Peer)) {
+	r.rwPeers.RLock()
+	defer r.rwPeers.RUnlock()
+	for key := range r.peers {
+		p := &pb.Peer{}
+		json.Unmarshal([]byte(key), p)
+		function(p)
 	}
 }
 
