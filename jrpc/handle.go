@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"errors"
 	"fmt"
+	"strings"
 	"time"
 
 	"github.com/bocheninc/msg-net/logger"
@@ -25,12 +26,35 @@ const (
 )
 
 type MsgNet struct {
-	Router RouterInterface
+	Router        RouterInterface
+	StatusTimeOut time.Duration
 }
 
-func (m *MsgNet) GetAllServers(key string, relay *Servers) error       { return nil }
-func (m *MsgNet) GetServersByIP(key string, relay *Servers) error      { return nil }
-func (m *MsgNet) GetServerStatusByIP(key string, relay *Servers) error { return nil }
+func (m *MsgNet) GetAllServerInfos(ignore string, relay *Servers) error {
+	ss := &Servers{}
+	m.checkStatus(func(k, v interface{}) {
+		server := v.(map[string]interface{})["localServer"]
+		ss.Servers = append(ss.Servers, server)
+	})
+	*relay = *ss
+	return nil
+}
+func (m *MsgNet) GetServerInfoByIP(ip string, relay *interface{}) error {
+	m.checkStatus(func(k, v interface{}) {
+		if k.(string) == ip {
+			*relay = v.(map[string]interface{})["localServer"]
+		}
+	})
+	return nil
+}
+func (m *MsgNet) GetServerStatusByIP(ip string, relay *interface{}) error {
+	m.checkStatus(func(k, v interface{}) {
+		if k.(string) == ip {
+			*relay = v.(map[string]interface{})["serverStatus"]
+		}
+	})
+	return nil
+}
 
 func (m *MsgNet) GetNodeConfigByID(args QueryConfigArgs, relay *string) error {
 	dst := fmt.Sprintf("%s:%s", args.ChainID, hex.EncodeToString([]byte(args.NodeID)))
@@ -42,7 +66,7 @@ func (m *MsgNet) GetNodeConfigByID(args QueryConfigArgs, relay *string) error {
 	return nil
 }
 
-func (m *MsgNet) GetNodeLogByID(args QueryLogArgs, relay *string) error {
+func (m *MsgNet) GetNodeLogByID(args QueryLogArgs, relay *interface{}) error {
 	dst := fmt.Sprintf("%s:%s", args.ChainID, hex.EncodeToString([]byte(args.NodeID)))
 	result, err := m.getResponse(ldpQueryLog, dst, [][]int{args.Range})
 	if err != nil {
@@ -56,19 +80,19 @@ func (m *MsgNet) GetAllNodeNewBlockInfo(ignore string, relay *NodesTheLastBlockI
 	nodes := &NodesTheLastBlockInfo{}
 	var err error
 	m.Router.PeerIDIterFunc(func(peer *pb.Peer) {
-		//TODO 所有节点，但是不包括监控节点
-		blockInfo, err := m.getResponse(ldpGetTheLastBlockInfo, peer.Id, []string{})
-		if err != nil {
-			logger.Errorf("can't not get %s response %s", peer.Id, err)
-			err = fmt.Errorf("can't not get %s response %s", peer.Id, err)
-		} else {
-			nodes.TheLastBlocks = append(nodes.TheLastBlocks, blockInfo)
+		if !strings.Contains(peer.Id, "__virtual") || !strings.Contains(peer.Id, "detector") {
+			blockInfo, err := m.getResponse(ldpGetTheLastBlockInfo, peer.Id, []string{})
+			if err != nil {
+				logger.Errorf("can't not get %s response %s", peer.Id, err)
+				err = fmt.Errorf("can't not get %s response %s", peer.Id, err)
+			} else {
+				nodes.TheLastBlocks = append(nodes.TheLastBlocks, blockInfo)
+			}
 		}
 	})
 	if err != nil {
 		return err
 	}
-
 	*relay = *nodes
 	return nil
 }
@@ -134,7 +158,6 @@ func (m *MsgNet) GetAccountInfoByAddr(args GetAccountInfoByAddrArgs, relay *inte
 }
 
 func (m *MsgNet) GetHistoryTransaction(args GetHistoryTransactionArgs, relay *interface{}) error {
-	fmt.Println("111111111111:", args)
 	dst := fmt.Sprintf("%s:%s", args.ChainID, hex.EncodeToString([]byte(args.NodeID)))
 	result, err := m.getResponse(ldpGetHistoryTransaction, dst, []interface{}{args.Args})
 	if err != nil {
@@ -164,4 +187,16 @@ func (m *MsgNet) getResponse(method, dst string, params interface{}) (interface{
 		return nil, errors.New(resp.Error)
 	}
 	return resp.Result, nil
+}
+
+func (m *MsgNet) checkStatus(f func(k, v interface{})) {
+	allStatus.Range(func(key, value interface{}) bool {
+		created := value.(map[string]interface{})["timestamp"].(time.Time)
+		if created.Add(m.StatusTimeOut).Before(time.Now()) {
+			allStatus.Delete(key)
+		} else {
+			f(key, value)
+		}
+		return true
+	})
 }

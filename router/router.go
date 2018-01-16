@@ -450,6 +450,19 @@ func (r *Router) PeerIDIterFunc(function func(*pb.Peer)) {
 	}
 }
 
+func (r *Router) GetIPByPeerID(id string) string {
+	r.rwPeers.RLock()
+	defer r.rwPeers.RUnlock()
+	for key, conn := range r.peers {
+		p := &pb.Peer{}
+		json.Unmarshal([]byte(key), p)
+		if p.Id == id {
+			return conn.c.RemoteAddr().String()
+		}
+	}
+	return ""
+}
+
 func (r *Router) isPeer(conn net.Conn) *pb.Peer {
 	r.rwPeers.RLock()
 	defer r.rwPeers.RUnlock()

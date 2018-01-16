@@ -27,19 +27,6 @@ type Response struct {
 	Error  string      `json:"error"`
 }
 
-// func (r *Response) byte() []byte {
-// 	result, _ := json.Marshal(r)
-// 	return result
-// }
-
-// func createResp(id int64, result string, err string) *Response {
-// 	return &Response{
-// 		ID:     id,
-// 		Result: result,
-// 		Error:  err,
-// 	}
-// }
-
 type NodesTheLastBlockInfo struct {
 	TheLastBlocks []interface{} `json:"theLastBlocks"`
 }
@@ -50,6 +37,13 @@ type msgnetMessage struct {
 }
 
 type Servers struct {
+	Servers []interface{} `json:"serverInfos"`
+}
+
+type ServerProcess struct {
+	ChainID string `json:"chainID"`
+	NodeID  string `json:"nodeID"`
+	Status  string `json:"status"`
 }
 
 type QueryLogArgs struct {
