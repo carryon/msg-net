@@ -66,13 +66,18 @@ type GetBlocksInfoByRangeArgs struct {
 type GetBlockByHashArgs struct {
 	ChainID string
 	NodeID  string
-	Hash    string
+	Args    interface{}
 }
 
 type GetBlockByHeightArgs struct {
 	ChainID string
 	NodeID  string
-	Height  int
+	Args    interface{}
+}
+
+type GetBlockByHeightArgsParams struct {
+	Height string
+	Range  []int
 }
 
 type GetTxByHashArgs struct {
@@ -96,10 +101,5 @@ type GetAccountInfoByAddrArgs struct {
 type GetHistoryTransactionArgs struct {
 	ChainID string
 	NodeID  string
-	Args    *Params
-}
-
-type Params struct {
-	Addr  string
-	Range []int
+	Args    interface{}
 }

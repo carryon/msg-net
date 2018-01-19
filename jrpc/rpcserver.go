@@ -1,6 +1,7 @@
 package jrpc
 
 import (
+	"encoding/hex"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -31,8 +32,8 @@ var (
 )
 
 const (
-	chainRPCMsg = 105
-	nodeStatus  = 107
+	chainRPCMsg   = 105
+	nodeStatusMsg = 107
 )
 
 func sendMessage(id int64, dst string, payload []byte) ([]byte, error) {
@@ -57,7 +58,6 @@ func chainMessageHandle(srcID, dstID string, payload, signature []byte) error {
 			return
 		}
 	}()
-
 	msg := &msgnetMessage{}
 	util.Deserialize(payload, msg)
 	switch msg.Cmd {
@@ -72,21 +72,23 @@ func chainMessageHandle(srcID, dstID string, payload, signature []byte) error {
 				close(ch)
 			}
 		}
-	case nodeStatus:
+	case nodeStatusMsg:
 		m := make(map[string]interface{})
-		json.Unmarshal(msg.Payload, m)
-		m["time"] = time.Now()
-		ip := m["localSever"].(map[string]interface{})["ip"].(string)
-		servers := m["localSever"].(map[string]interface{})["servers"].([]interface{})
+		json.Unmarshal(msg.Payload, &m)
+		m["timestamp"] = time.Now()
+		localSever := m["localServer"].(map[string]interface{})
+		ip := localSever["ip"].(string)
+		servers := []*ServerProcess{}
 		routerInter.PeerIDIterFunc(func(peer *pb.Peer) {
-			if !strings.Contains(peer.Id, "__virtual") || !strings.Contains(peer.Id, "detector") {
+			if !strings.Contains(peer.Id, "__virtual") && !strings.Contains(peer.Id, "monitor") {
 				if strings.Contains(routerInter.GetIPByPeerID(peer.Id), ip) {
 					ids := strings.Split(peer.Id, ":")
-					servers = append(servers, &ServerProcess{ChainID: ids[0], NodeID: ids[1], Status: "运行中"})
+					nodeID, _ := hex.DecodeString(ids[1])
+					servers = append(servers, &ServerProcess{ChainID: ids[0], NodeID: string(nodeID), Status: "运行中"})
 				}
 			}
 		})
-
+		localSever["servers"] = servers
 		allStatus.Store(ip, m)
 	}
 	return nil

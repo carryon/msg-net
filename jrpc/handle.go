@@ -13,16 +13,16 @@ import (
 )
 
 const (
-	ldpQueryLog              = "Ldp.GetLog"
-	ldpQueryConfig           = "Ldp.GetConfig"
-	ldpGetTheLastBlockInfo   = "Ldp.GetTheLastBlockInfo"
-	ldpGetBlockByRange       = "Ldp.GetBlockByRange"
-	ldpGetBlockByHash        = "Ldp.GetBlockByHash"
-	ldpGetBlockByHeight      = "Ldp.GetBlockByHeight"
-	ldpGetTxByHash           = "Ldp.GetTxByHash"
-	ldpGetAccountInfoByID    = "Ldp.GetAccountInfoByID"
-	ldpGetAccountInfoByAddr  = "Ldp.GetAccountInfoByAddr"
-	ldpGetHistoryTransaction = "Ldp.GetHistoryTransaction"
+	ldpQueryLog              = "Browse.GetLog"
+	ldpQueryConfig           = "Browse.GetConfig"
+	ldpGetTheLastBlockInfo   = "Browse.GetTheLastBlockInfo"
+	ldpGetBlockByRange       = "Browse.GetBlockByRange"
+	ldpGetBlockByHash        = "Browse.GetBlockByHash"
+	ldpGetBlockByHeight      = "Browse.GetBlockByHeight"
+	ldpGetTxByHash           = "Browse.GetTxByHash"
+	ldpGetAccountInfoByID    = "Browse.GetAccountInfoByID"
+	ldpGetAccountInfoByAddr  = "Browse.GetAccountInfoByAddr"
+	ldpGetHistoryTransaction = "Browse.GetHistoryTransaction"
 )
 
 type MsgNet struct {
@@ -72,7 +72,7 @@ func (m *MsgNet) GetNodeLogByID(args QueryLogArgs, relay *interface{}) error {
 	if err != nil {
 		return err
 	}
-	*relay = result.(string)
+	*relay = result
 	return nil
 }
 
@@ -80,7 +80,7 @@ func (m *MsgNet) GetAllNodeNewBlockInfo(ignore string, relay *NodesTheLastBlockI
 	nodes := &NodesTheLastBlockInfo{}
 	var err error
 	m.Router.PeerIDIterFunc(func(peer *pb.Peer) {
-		if !strings.Contains(peer.Id, "__virtual") || !strings.Contains(peer.Id, "detector") {
+		if !strings.Contains(peer.Id, "__virtual") && !strings.Contains(peer.Id, "monitor") {
 			blockInfo, err := m.getResponse(ldpGetTheLastBlockInfo, peer.Id, []string{})
 			if err != nil {
 				logger.Errorf("can't not get %s response %s", peer.Id, err)
@@ -109,7 +109,7 @@ func (m *MsgNet) GetBlockByRange(args GetBlocksInfoByRangeArgs, relay *interface
 
 func (m *MsgNet) GetBlockByHash(args GetBlockByHashArgs, relay *interface{}) error {
 	dst := fmt.Sprintf("%s:%s", args.ChainID, hex.EncodeToString([]byte(args.NodeID)))
-	result, err := m.getResponse(ldpGetBlockByHash, dst, []string{args.Hash})
+	result, err := m.getResponse(ldpGetBlockByHash, dst, []interface{}{args.Args})
 	if err != nil {
 		return err
 	}
@@ -119,7 +119,7 @@ func (m *MsgNet) GetBlockByHash(args GetBlockByHashArgs, relay *interface{}) err
 
 func (m *MsgNet) GetBlockByHeight(args GetBlockByHeightArgs, relay *interface{}) error {
 	dst := fmt.Sprintf("%s:%s", args.ChainID, hex.EncodeToString([]byte(args.NodeID)))
-	result, err := m.getResponse(ldpGetBlockByHeight, dst, []int{args.Height})
+	result, err := m.getResponse(ldpGetBlockByHeight, dst, []interface{}{args.Args})
 	if err != nil {
 		return err
 	}
@@ -193,6 +193,7 @@ func (m *MsgNet) checkStatus(f func(k, v interface{})) {
 	allStatus.Range(func(key, value interface{}) bool {
 		created := value.(map[string]interface{})["timestamp"].(time.Time)
 		if created.Add(m.StatusTimeOut).Before(time.Now()) {
+			logger.Debugln("remove monito :", key)
 			allStatus.Delete(key)
 		} else {
 			f(key, value)
