@@ -97,6 +97,16 @@ func (m *MsgNet) GetAllNodeNewBlockInfo(ignore string, relay *NodesTheLastBlockI
 	return nil
 }
 
+func (m *MsgNet) GetNodeNewBlockInfo(args QueryConfigArgs, relay *interface{}) error {
+	dst := fmt.Sprintf("%s:%s", args.ChainID, hex.EncodeToString([]byte(args.NodeID)))
+	blockInfo, err := m.getResponse(ldpGetTheLastBlockInfo, dst, []string{})
+	if err != nil {
+		return err
+	}
+	*relay = blockInfo
+	return nil
+}
+
 func (m *MsgNet) GetBlockByRange(args GetBlocksInfoByRangeArgs, relay *interface{}) error {
 	dst := fmt.Sprintf("%s:%s", args.ChainID, hex.EncodeToString([]byte(args.NodeID)))
 	result, err := m.getResponse(ldpGetBlockByRange, dst, []int{args.Range})
