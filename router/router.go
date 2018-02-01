@@ -119,7 +119,14 @@ func (r *Router) Start() {
 		time.Sleep(time.Millisecond)
 		if r.server.IsRunning() {
 			go func() {
-				rpcserver.RunRPCServer(config.GetString("rpcserver.port"), config.GetString("router.address"), r)
+				jrpc := &rpcserver.Jrpc{}
+				jrpc.RunRPCServer(config.GetString("rpcserver.port"),
+					config.GetString("router.address"),
+					r,
+					config.GetStringSlice("confirmedProcess.ldpPeer"),
+					config.GetStringSlice("confirmedProcess.msgnetPeer"),
+					config.GetStringSlice("confirmedProcess.monitor"),
+				)
 			}()
 			break
 		}
@@ -314,7 +321,7 @@ func (r *Router) String() string {
 	m["address"] = r.address
 
 	f := make([]interface{}, 0)
-	r.iterFunc(func(address string, router *pb.Router) {
+	r.IterFunc(func(address string, router *pb.Router) {
 		f = append(f, router.Address)
 	})
 	m["routers"] = f
@@ -382,7 +389,17 @@ func (r *Router) removeRouter(key string) {
 	r.broadcastNetworkRouters()
 }
 
-func (r *Router) iterFunc(function func(string, *pb.Router)) {
+func (r *Router) RouterIterFunc(function func(string, *pb.Router)) {
+	r.rwRouters.RLock()
+	defer r.rwRouters.RUnlock()
+	for key, rt := range r.routers {
+		function(key, rt)
+	}
+
+	function(r.address, &pb.Router{Id: r.id, Address: r.address})
+}
+
+func (r *Router) IterFunc(function func(string, *pb.Router)) {
 	r.rwRouters.RLock()
 	defer r.rwRouters.RUnlock()
 	for key, rt := range r.routers {
@@ -588,7 +605,7 @@ func (r *Router) broadcastNetworkRouters() {
 	r.timerNetworkRouters.Stop()
 	rt := &pb.Routers{}
 	rt.Id = r.address
-	r.iterFunc(func(address string, router *pb.Router) {
+	r.IterFunc(func(address string, router *pb.Router) {
 		rt.Routers = append(rt.Routers, router)
 	})
 	data, _ := rt.Serialize()

@@ -31,3 +31,8 @@ report:
 #rpcserver
 rpcserver:
       port: 8989
+
+confirmedProcess:
+      ldpPeer: ["0001_abc","0002_abc","0003_abc","0004_abc","0005_abc"]
+      msgnetPeer: ["mn_1"]
+      monitor: ["mon_1"]

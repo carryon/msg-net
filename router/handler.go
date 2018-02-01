@@ -189,7 +189,7 @@ func (h *Handler) afterRouterGet(e *fsm.Event) {
 	//Send
 	r := &pb.Routers{}
 	r.Id = h.router.address
-	h.router.iterFunc(func(key string, router *pb.Router) {
+	h.router.IterFunc(func(key string, router *pb.Router) {
 		r.Routers = append(r.Routers, &pb.Router{Id: router.Id, Address: router.Address})
 	})
 	bytes, err := r.Serialize()

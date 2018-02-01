@@ -26,8 +26,7 @@ const (
 )
 
 type MsgNet struct {
-	Router        RouterInterface
-	StatusTimeOut time.Duration
+	jrpc *Jrpc
 }
 
 func (m *MsgNet) GetAllServerInfos(ignore string, relay *Servers) error {
@@ -79,13 +78,22 @@ func (m *MsgNet) GetNodeLogByID(args QueryLogArgs, relay *interface{}) error {
 func (m *MsgNet) GetAllNodeNewBlockInfo(ignore string, relay *NodesTheLastBlockInfo) error {
 	nodes := &NodesTheLastBlockInfo{}
 	var err error
-	m.Router.PeerIDIterFunc(func(peer *pb.Peer) {
+	m.jrpc.routerInter.PeerIDIterFunc(func(peer *pb.Peer) {
 		if !strings.Contains(peer.Id, "__virtual") && !strings.Contains(peer.Id, "monitor") {
 			blockInfo, err := m.getResponse(ldpGetTheLastBlockInfo, peer.Id, []string{})
 			if err != nil {
 				logger.Errorf("can't not get %s response %s", peer.Id, err)
 				err = fmt.Errorf("can't not get %s response %s", peer.Id, err)
 			} else {
+				ids := strings.Split(peer.Id, ":")
+				nodeID, _ := hex.DecodeString(ids[1])
+				var confirmed bool
+				for _, v := range m.jrpc.ldpIDs {
+					if v == string(nodeID) {
+						confirmed = true
+					}
+				}
+				blockInfo.(map[string]interface{})["confirmed"] = confirmed
 				nodes.TheLastBlocks = append(nodes.TheLastBlocks, blockInfo)
 			}
 		}
@@ -184,7 +192,7 @@ func (m *MsgNet) getResponse(method, dst string, params interface{}) (interface{
 	if err != nil {
 		return nil, err
 	}
-	data, err := sendMessage(now, dst, payload)
+	data, err := m.jrpc.sendMessage(now, dst, payload)
 	if err != nil {
 		return nil, err
 	}
@@ -200,11 +208,11 @@ func (m *MsgNet) getResponse(method, dst string, params interface{}) (interface{
 }
 
 func (m *MsgNet) checkStatus(f func(k, v interface{})) {
-	allStatus.Range(func(key, value interface{}) bool {
+	m.jrpc.allStatus.Range(func(key, value interface{}) bool {
 		created := value.(map[string]interface{})["timestamp"].(time.Time)
-		if created.Add(m.StatusTimeOut).Before(time.Now()) {
+		if created.Add(m.jrpc.statusTimeOut).Before(time.Now()) {
 			logger.Debugln("remove monito :", key)
-			allStatus.Delete(key)
+			m.jrpc.allStatus.Delete(key)
 		} else {
 			f(key, value)
 		}

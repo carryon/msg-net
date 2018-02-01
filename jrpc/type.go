@@ -40,10 +40,18 @@ type Servers struct {
 	Servers []interface{} `json:"serverInfos"`
 }
 
+const (
+	msgnet = iota
+	ldpPeer
+	monitor
+)
+
 type ServerProcess struct {
-	ChainID string `json:"chainID"`
-	NodeID  string `json:"nodeID"`
-	Status  string `json:"status"`
+	Confirmed bool   `json:"confirmed"`
+	Type      uint32 `json:"type"`
+	ChainID   string `json:"chainID"`
+	NodeID    string `json:"nodeID"`
+	Status    string `json:"status"`
 }
 
 type QueryLogArgs struct {
